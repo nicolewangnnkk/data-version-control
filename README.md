@@ -13,3 +13,32 @@ git clone git@github.com:YourUsername/data-version-control.git
 Make sure to replace `YourUsername` in the above command with your actual GitHub username.
 
 Happy coding!
+
+# DVC CREATE PIPELINE
+```
+dvc stage -n train \
+        -d src/train.py -d data/prepared/train.csv \
+        -o model/model.joblib \
+        python src/train.py
+```
+```
+dvc stage add -n train \
+        -d src/train.py -d data/prepared/train.csv \
+        -o model/model.joblib \
+        python src/train.py
+```
+```
+dvc stage add -n evaluate \
+        -d src/evaluate.py -d model/model.joblib \
+        -M metrics/accuracy.json \
+        python src/evaluate.py
+```
+## run the pipeline
+```
+dvc exp run 
+```
+
+## checkout pipleline dag
+```
+dvc dag 
+```
